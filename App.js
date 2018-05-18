@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Animated } from "react-native";
 
-import { API_KEY } from "./src/utiils/WeatherAPIKey";
+import { API_KEY } from "./src/utils/WeatherAPIKey";
 import Weather from "./src/components/Weather";
+import { WeatherConditions } from "./src/utils/WeatherConditions";
 
 export default class App extends Component {
   state = {
@@ -39,7 +40,7 @@ export default class App extends Component {
 
         this.setState({
           tempature: json.main.temp,
-          weatherCondition: json.weather[0].main,
+          weatherConditions: json.weather[0].main,
           isLoading: false
         });
       });
@@ -52,7 +53,10 @@ export default class App extends Component {
         {isLoading ? (
           <Text>Fetching The Weather</Text>
         ) : (
-          <Weather weather={weatherCondition} tempature={tempature} />
+          <Weather
+            weather={weatherConditions}
+            tempature={tempature}
+          />
         )}
       </View>
     );

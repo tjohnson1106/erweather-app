@@ -1,36 +1,51 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import PropTypes from "prop-types";
+
+import { WeatherConditions } from "../utils/WeatherConditions";
 
 const Weather = ({ weather, tempature }) => {
   return (
-    <View style={styles.weatherContainer}>
+    <View
+      style={[
+        styles.weatherContainer,
+        { backgroundColor: weatherConditions[weather].color }
+      ]}
+    >
       <View style={styles.headerContainer}>
         <MaterialCommunityIcons
-          size={48}
-          name="weather-sunny"
+          size={72}
+          name={weatherConditions[weather].icon}
           color={"#fff"}
         />
         <Text style={styles.tempText}>{tempature}</Text>
       </View>
 
       <View style={styles.bodyContainer}>
-        <Text style={styles.title}>{weather}</Text>
+        <Text style={styles.title}>
+          {weatherConditions[weather].title}
+        </Text>
         <Text style={styles.subtitle}>Bright for miles!</Text>
       </View>
     </View>
   );
 };
 
+Weather.propTypes = {
+  tempature: PropTypes.number.isRequired,
+  weather: PropTypes.string
+};
+
 const styles = StyleSheet.create({
   weatherContainer: {
-    flex: 1,
-    backgroundColor: "#f7b733"
+    flex: 1
   },
   headerContainer: {
     flex: 1,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-around"
   },
   tempText: {
     fontSize: 48,
